@@ -38,7 +38,7 @@ export const personalInfo: PersonalInfo = {
   description: "Soy estudiante de Desarrollo de Software. Estoy aprendiendo a crear experiencias web accesibles, rápidas y cuidadas en cada detalle.",
   github: "https://github.com/naomisanchez-coder",
   siteUrl,
-  avatar: "/images/avatar.png",
+  avatar: "/images/foto-perfil.png",
   // Correo y LinkedIn sin configurar: no se publican datos ficticios.
 };
 

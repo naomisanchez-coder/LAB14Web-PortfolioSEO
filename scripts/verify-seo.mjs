@@ -79,9 +79,9 @@ for (const url of imageUrls) {
   assert.match(response.headers.get("content-type"), /image\/webp/);
   assert.ok((await response.arrayBuffer()).byteLength > 0);
 }
-const avif = await read("/_next/image?url=%2Fimages%2Favatar.png&w=384&q=75", { headers: { Accept: "image/avif" } });
+const avif = await read("/_next/image?url=%2Fimages%2Ffoto-perfil.png&w=384&q=75", { headers: { Accept: "image/avif" } });
 assert.match(avif.headers.get("content-type"), /image\/avif/);
 const blocked = await fetch(`${base}/_next/image?url=https%3A%2F%2Fexample.com%2Fnot-allowed.jpg&w=640&q=75`);
 assert.equal(blocked.status, 400);
-console.log(`OK ${imageUrls.size} imágenes optimizadas WebP, avatar AVIF y dominio ajeno rechazado`);
+console.log(`OK ${imageUrls.size} imágenes optimizadas WebP, fotografía AVIF y dominio ajeno rechazado`);
 console.log("Verificación SEO completada sin errores.");
