@@ -60,3 +60,61 @@ No desarrollo contacto, no despliego en Vercel, no configuro dominios, no añado
 ## Informe de cierre solicitado
 
 Pido resumen de las seis partes, estructura, versiones, commits publicados, resultados de lint/tipos/build, funcionalidades comprobadas, incidencias y soluciones, ruta local, repositorio, comando de inicio, capturas pendientes y alcance exclusivo de la siguiente TAREA.
+
+
+---
+
+## Continuación cronológica — TAREA final
+
+### Objetivo de esta etapa
+
+Continúo el portafolio existente del Laboratorio 14, incorporo mi fotografía real, mejoro el diseño, agrego Contacto y preparo el SEO para un despliegue manual en Vercel. Conservo la primera etapa y sus 12 commits originales, cuyo cierre fue `c743ba3`.
+
+### Prompt de implementación recibido
+
+> Actúa como desarrollador senior especializado en Next.js, TypeScript, Tailwind CSS, SEO técnico, diseño UI/UX y Git. Completa la sección TAREA como continuación del proyecto existente: fotografía profesional, mejoras visuales, página de contacto funcional, sitemap de siete URLs, robots y metadatos coherentes, preparación para Vercel, verificaciones y commits progresivos. No realices el despliegue; lo haré manualmente.
+
+Este registro resume el nuevo encargo; no sustituye ni borra el prompt de la primera etapa.
+
+### Instrucciones adicionales relevantes
+
+- Inspeccionar estructura, Git, sincronización, README, prompts, AGENTS, componentes, configuración, imágenes, rutas y pruebas antes de modificar.
+- Trabajar exclusivamente en `main`, sin reescribir los 12 commits previos, recrear el repositorio ni tocar otros proyectos.
+- Utilizar solo mi `FotoFormal.png` original; no generar rostros, modificar rasgos, aplicar filtros, reconocimiento facial o APIs externas de procesamiento.
+- Mantener la fotografía estática en Inicio y Sobre mí con `next/image`, alt, dimensiones, sizes y carga prioritaria solo donde corresponde.
+- Repartir blanco cálido, azul suave, gris claro y violeta moderado entre superficies; mejorar jerarquía, espaciados, tarjetas, Header/Footer y adaptación móvil sin dependencias grandes.
+- Conservar los tres proyectos académicos, sus slugs, sus tecnologías y sus rutas dinámicas; no inventar demos, experiencia laboral ni certificaciones.
+- Agregar `/contact` con presentación, invitación a propuestas/consultas, GitHub real y regreso a Inicio. Correo y LinkedIn solo si están confirmados. No crear formularios ficticios ni backend.
+- Añadir Contacto a navegación y sitemap, manteniendo los detalles generados desde los datos y permitiendo rastreo de páginas e imágenes públicas.
+- Reutilizar el origen configurable de SEO, evitar localhost en Vercel y documentar el valor público real cuando exista. No inventar dominios.
+- No iniciar sesión ni crear proyectos en Vercel, no desplegar, comprar dominios, cambiar DNS o activar servicios externos.
+- No ejecutar kill ni sudo ni detener procesos de otros proyectos. Permitir producción local con `npm run start -- -p 3001` si el puerto está libre.
+- Ejecutar lint, TypeScript, build, verify:seo y auditorías reales de producción. No simular puntuaciones ni generar capturas o carpetas de evidencias.
+- Actualizar README en primera persona con ambas etapas, ejecución, Vercel pendiente de despliegue manual, resultados reales y cinco conclusiones; agregar esta continuación al registro previo.
+
+### Cambios realizados
+
+1. Copié la fotografía sin cambiar sus bytes a `public/images/foto-perfil.png`, y reutilicé el campo `personalInfo.avatar` en las dos páginas.
+2. Mejoré la paleta por superficies, el marco estático del perfil, la tipografía, las tarjetas y el responsive, preservando Tailwind CSS.
+3. Implementé Contacto con la Metadata API existente y el enlace real de GitHub, sin correo inventado ni formulario.
+4. Actualicé Header, Footer y los botones de Inicio para acceder a Contacto.
+5. Añadí Contacto al sitemap, actualicé la fecha real del contenido y comprobé las reglas existentes de robots para las siete URLs.
+6. Reutilicé `SITE_URL`, agregué el fallback de dominio real `VERCEL_PROJECT_PRODUCTION_URL` y pruebas de rechazo de localhost/HTTP/puertos locales en Vercel.
+7. Extendí el verificador sin borrar comprobaciones anteriores: Contacto, fotografía, enlaces internos y configuración del origen.
+8. Conservé los informes históricos Lighthouse. No añadí archivos nuevos de capturas ni carpetas de evidencias.
+
+### Resultados de validación
+
+- `npm run lint`, `npx tsc --noEmit` y `npm run build`: aprobados.
+- `TEST_BASE_URL=http://localhost:3002 SITE_URL=http://localhost:3002 npm run verify:seo`: aprobado; siete rutas, enlaces internos, metadatos, fotografía, 404/noindex, sitemap, robots y restricciones de imágenes comprobados.
+- Sitemap parseado como XML válido, con siete URLs únicas y completas.
+- Navegador: siete rutas sin desbordamiento a 320 y 1440 px, fotografía cargada y navegación hacia Contacto funcional; enlace para saltar al contenido accesible con Tab y foco visible.
+- Lighthouse nuevo de Inicio, en producción local: Desktop 100/100/100/100 y Mobile 100/100/100/100, en el orden Performance/Accessibility/Best Practices/SEO. Ejecuciones UTC `2026-11-23T03:42:35.878Z` y `2026-11-23T03:42:46.329Z`, el 22 de noviembre en Perú, sin advertencias de ejecución.
+- No reutilicé las puntuaciones anteriores como nuevas: las anteriores fueron Desktop 100/100/100/100 y Mobile 98/100/100/100.
+- Usé el puerto 3002 al encontrar procesos en escucha en 3000 y 3001. No terminé dichos procesos ni modifiqué puertos de Vercel.
+
+### Estado y siguiente paso manual
+
+Dejo el proyecto preparado para importar en Vercel, con `SITE_URL` documentada y validada. El estado es **Pendiente de despliegue manual**. La publicación, la URL definitiva, el dominio y su validación pública quedan a mi cargo. Las evidencias se presentan en el documento académico de entrega.
+
+Como preparación final, fijé Node.js `24.x` en engines y conservé la misma versión mayor probada localmente; Vercel puede seleccionar otra mayor con un rango abierto. No agregué dependencias.
