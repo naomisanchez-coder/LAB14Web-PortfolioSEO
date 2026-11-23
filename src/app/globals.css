@@ -129,3 +129,15 @@ h3 { font-size:1.5rem; margin-bottom:12px; }
   .tech-strip { padding:20px; }
   .skill-grid { grid-template-columns:1fr; }
 }
+
+h2,h3 { font-weight:650; }
+.contact-layout { display:grid; grid-template-columns:1.15fr 1fr; gap:32px; padding:8px 0 72px; }
+.contact-layout h2 { font-size:1.7rem; margin-bottom:20px; }
+.contact-layout p { color:var(--muted); }
+.contact-intro { padding:30px; }
+.contact-intro .button { margin-top:16px; }
+.contact-channel { padding:32px; background:#f3effa; border:1px solid #e6dcf1; border-radius:20px; }
+.contact-channel .eyebrow { color:var(--violet); }
+.contact-handle { overflow-wrap:anywhere; font-weight:600; }
+.contact-extra { display:block; margin-top:20px; }
+@media (max-width:760px) { .contact-layout { grid-template-columns:1fr; gap:20px; } .contact-intro { padding:12px 8px; } .contact-channel { padding:26px; } }
