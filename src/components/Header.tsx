@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const links = [["/", "Inicio"], ["/projects", "Proyectos"], ["/about", "Sobre mí"]];
+const links = [["/", "Inicio"], ["/projects", "Proyectos"], ["/about", "Sobre mí"], ["/contact", "Contacto"]];
 
 export default function Header() {
   const pathname = usePathname();
