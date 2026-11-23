@@ -46,4 +46,4 @@ export const skills = ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Next
 export const getProject = (slug: string) => projects.find((project) => project.slug === slug);
 
 // Fecha real de preparación del contenido del laboratorio; actualizar al editarlo.
-export const contentLastModified = new Date("2026-11-23T02:08:32+00:00");
+export const contentLastModified = new Date("2026-11-23T03:41:07+00:00");

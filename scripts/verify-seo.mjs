@@ -6,6 +6,7 @@ const pages = new Map([
   ["/", "Naomi Sánchez | Desarrolladora web en formación"],
   ["/projects", "Proyectos | Naomi Sánchez"],
   ["/about", "Sobre mí | Naomi Sánchez"],
+  ["/contact", "Contacto | Naomi Sánchez"],
   ["/projects/ecommerce-platform", "E-commerce Platform | Naomi Sánchez"],
   ["/projects/task-manager", "Task Manager App | Naomi Sánchez"],
   ["/projects/weather-dashboard", "Weather Dashboard | Naomi Sánchez"],
@@ -39,16 +40,20 @@ for (const [path, title] of pages) {
   assert.match(html, /<main[^>]*id="main-content"/);
   assert.match(html, /<header\b/);
   assert.match(html, /<footer\b/);
-  for (const href of ["/", "/projects", "/about", "https://github.com/naomisanchez-coder"]) {
+  for (const href of ["/", "/projects", "/about", "/contact", "https://github.com/naomisanchez-coder"]) {
     assert.ok(html.includes(`href="${href}"`), `${path}: enlace ${href}`);
   }
-  assert.doesNotMatch(html, /href="(?:https:\/\/(?:demo|tasks)\.example\.com|https:\/\/github\.com\/usuario|\/contact)/);
+  assert.doesNotMatch(html, /href="(?:https:\/\/(?:demo|tasks)\.example\.com|https:\/\/github\.com\/usuario)/);
   for (const [tag] of html.matchAll(/<img\b[^>]*>/g)) {
     assert.ok(attr(tag, "alt")?.trim(), `${path}: alt descriptivo`);
     assert.ok(attr(tag, "sizes"), `${path}: sizes`);
     assert.match(attr(tag, "src"), /^\/_next\/image\?/);
     imageUrls.add(attr(tag, "src"));
   }
+  if (path === "/" || path === "/about") {
+    assert.ok([...html.matchAll(/<img\b[^>]*>/g)].some(([tag]) => attr(tag, "src")?.includes("foto-perfil.png")), `${path}: fotografía real`);
+  }
+  if (path === "/contact") assert.doesNotMatch(html, /<form\b|<input\b|mailto:/);
   console.log(`OK ${path}: HTTP, SEO, semántica, navegación, footer y alt`);
 }
 
@@ -60,10 +65,10 @@ console.log("OK slug inexistente: HTTP 404 y noindex");
 const sitemap = await (await read("/sitemap.xml")).text();
 const locations = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(([, url]) => url).sort();
 assert.deepEqual(locations, [...pages.keys()].map((path) => new URL(path, origin).href).sort());
-assert.equal([...sitemap.matchAll(/<lastmod>(.*?)<\/lastmod>/g)].length, 6);
+assert.equal([...sitemap.matchAll(/<lastmod>(.*?)<\/lastmod>/g)].length, pages.size);
 for (const [, date] of sitemap.matchAll(/<lastmod>(.*?)<\/lastmod>/g)) assert.ok(Date.parse(date) <= Date.now());
-assert.equal([...sitemap.matchAll(/<changefreq>/g)].length, 6);
-assert.equal([...sitemap.matchAll(/<priority>/g)].length, 6);
+assert.equal([...sitemap.matchAll(/<changefreq>/g)].length, pages.size);
+assert.equal([...sitemap.matchAll(/<priority>/g)].length, pages.size);
 const robots = await (await read("/robots.txt")).text();
 assert.match(robots, /User-Agent: \*/i);
 assert.match(robots, /User-Agent: Googlebot/i);
@@ -71,8 +76,8 @@ assert.match(robots, /Allow: \//);
 assert.match(robots, /Disallow: \/api\//);
 assert.match(robots, /Disallow: \/admin\//);
 assert.ok(robots.includes(`Sitemap: ${origin}/sitemap.xml`));
-assert.doesNotMatch(robots, /Disallow: \/(?:_next|images|projects|about)/);
-console.log("OK sitemap (6 URLs) y robots (recursos públicos rastreables)");
+assert.doesNotMatch(robots, /Disallow: \/(?:_next|images|projects|about|contact)/);
+console.log("OK sitemap (7 URLs) y robots (recursos públicos rastreables)");
 
 for (const url of imageUrls) {
   const response = await read(url, { headers: { Accept: "image/webp" } });
