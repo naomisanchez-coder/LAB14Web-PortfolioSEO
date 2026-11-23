@@ -12,6 +12,7 @@ const pages = new Map([
   ["/projects/weather-dashboard", "Weather Dashboard | Naomi Sánchez"],
 ]);
 const imageUrls = new Set();
+const internalPaths = new Set();
 const read = async (path, options) => {
   const response = await fetch(new URL(path, base), { signal: AbortSignal.timeout(30000), ...options });
   assert.equal(response.status, 200, `${path}: HTTP 200`);
@@ -44,6 +45,10 @@ for (const [path, title] of pages) {
     assert.ok(html.includes(`href="${href}"`), `${path}: enlace ${href}`);
   }
   assert.doesNotMatch(html, /href="(?:https:\/\/(?:demo|tasks)\.example\.com|https:\/\/github\.com\/usuario)/);
+  for (const [tag] of html.matchAll(/<a\b[^>]*>/g)) {
+    const href = attr(tag, "href");
+    if (href?.startsWith("/")) internalPaths.add(new URL(href, base).pathname);
+  }
   for (const [tag] of html.matchAll(/<img\b[^>]*>/g)) {
     assert.ok(attr(tag, "alt")?.trim(), `${path}: alt descriptivo`);
     assert.ok(attr(tag, "sizes"), `${path}: sizes`);
@@ -56,6 +61,10 @@ for (const [path, title] of pages) {
   if (path === "/contact") assert.doesNotMatch(html, /<form\b|<input\b|mailto:/);
   console.log(`OK ${path}: HTTP, SEO, semántica, navegación, footer y alt`);
 }
+
+for (const path of internalPaths) await read(path);
+console.log(`OK ${internalPaths.size} destinos internos de navegación sin enlaces rotos`);
+await import("./verify-site-config.mjs");
 
 const missing = await fetch(`${base}/projects/proyecto-inexistente`);
 assert.equal(missing.status, 404);
